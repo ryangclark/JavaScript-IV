@@ -23,19 +23,43 @@ class Instructor extends Person {
     grade(Student, subject) {
         return `${Student.name} receives a perfect score on ${subject}.`;
     }
+    editGrade(Student) {
+        const gradeChange = Math.floor(Math.random() * 10 + 1);
+        if (gradeChange % 2 == 0) {
+            Student.grade += gradeChange;
+            if (Student.grade > 100) {
+                Student.grade = 100;
+            }
+            return `${this.name} changed ${Student.name}'s grade by +${gradeChange} points to ${Student.grade}%.`;
+        } else {
+            Student.grade -= gradeChange;
+            if (Student.grade < 0) {
+                Student.grade = 0;
+            }
+            return `${this.name} changed ${Student.name}'s grade by -${gradeChange} points to ${Student.grade}%.`;
+        }
+    }
 }
 
 class Student extends Person {
     constructor(studentAttributes) {
         super(studentAttributes);
-        this.previousBackground = studentAttributes.previousBackground;
         this.className = studentAttributes.className;
         this.favSubjects = studentAttributes.favSubjects;
+        this.grade = Math.floor(Math.random() * 100 + 1);
+        this.previousBackground = studentAttributes.previousBackground;
     }
     listsSubjects() {
         this.favSubjects.forEach(element => {
             console.log(element);
         });
+    }
+    graduate() {
+        if (this.grade >= 70) {
+            return `${this.name} is ready to graduate with a grade of ${this.grade}%!!!`;
+        } else {
+            return `With a grade of ${this.grade}%, ${this.name} isn't quite ready to graduate.`;
+        }
     }
     PRAssignment(subject) {
         return `${this.name} has submitted a PR for ${subject}.`;
@@ -160,3 +184,11 @@ console.log(carol.debugsCode(arnie, 'Design'));
 console.log(carol.favInstructor);
 console.log(brad.standUp('General'));
 console.log(brad.gradClassName);
+
+console.log('––– STRETCH –––');
+console.log(arnie.grade);
+console.log(mimi.grade);
+console.log(carol.editGrade(arnie));
+console.log(barb.editGrade(mimi));
+console.log(mimi.graduate());
+console.log(arnie.graduate());
