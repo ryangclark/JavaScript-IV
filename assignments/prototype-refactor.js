@@ -1,4 +1,4 @@
-/* 
+/*
 
 Prototype Refactor
 
@@ -8,6 +8,41 @@ Prototype Refactor
 
 */
 
+// GameObject
+class GameObject {
+    constructor(gameArguments) {
+        this.createdAt = gameArguments.createdAt;
+        this.dimensions = gameArguments.dimensions;
+    }
+    destroy() {
+        return `Object was removed from the game.`;
+    }
+}
+
+// CharacterStats
+class CharacterStats extends GameObject {
+    constructor(statsArguments) {
+        super(statsArguments);
+        this.healthPoints = statsArguments.healthPoints;
+        this.name = statsArguments.name;
+    }
+    takeDamage() {
+        return `${this.name} took damage.`;
+    }
+}
+
+// Humanoid
+class Humanoid extends CharacterStats {
+    constructor(humanoidAttributes) {
+        super(humanoidAttributes);
+        this.team = humanoidAttributes.team;
+        this.weapons = humanoidAttributes.weapons;
+        this.lanugage = humanoidAttributes.language;
+    }
+    greet() {
+        return `${this.name} offers a greeting in ${this.language}.`;
+    }
+}
 
 // ––– Objects & Tests ––– //
 const mage = new Humanoid({
